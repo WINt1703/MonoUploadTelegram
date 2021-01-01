@@ -1,0 +1,28 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MonoUploadTelegram", "MonoUploadTelegram\MonoUploadTelegram.csproj", "{92C97A1E-2B4E-4A5D-8A4F-59BDBB964B28}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MonoUploadTelegram.Parser", "MonoUploadTelegram.Parser\MonoUploadTelegram.Parser.csproj", "{61191BB9-B846-47CB-832F-AFECF166B97B}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MonoUploadTelegram.WeTransferAPI", "MonoUploadTelegram.WeTransferAPI\MonoUploadTelegram.WeTransferAPI.csproj", "{47D9AAFE-2CE1-412C-AA0B-B49307C9FC15}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{92C97A1E-2B4E-4A5D-8A4F-59BDBB964B28}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{92C97A1E-2B4E-4A5D-8A4F-59BDBB964B28}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{92C97A1E-2B4E-4A5D-8A4F-59BDBB964B28}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{92C97A1E-2B4E-4A5D-8A4F-59BDBB964B28}.Release|Any CPU.Build.0 = Release|Any CPU
+		{61191BB9-B846-47CB-832F-AFECF166B97B}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{61191BB9-B846-47CB-832F-AFECF166B97B}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{61191BB9-B846-47CB-832F-AFECF166B97B}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{61191BB9-B846-47CB-832F-AFECF166B97B}.Release|Any CPU.Build.0 = Release|Any CPU
+		{47D9AAFE-2CE1-412C-AA0B-B49307C9FC15}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{47D9AAFE-2CE1-412C-AA0B-B49307C9FC15}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{47D9AAFE-2CE1-412C-AA0B-B49307C9FC15}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{47D9AAFE-2CE1-412C-AA0B-B49307C9FC15}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+EndGlobal

@@ -1,0 +1,8 @@
+bin/
+obj/
+/packages/
+riderModule.iml
+/_ReSharper.Caches/
+/.idea/.idea.MonoUploadTelegram/.idea/encodings.xml
+/.idea/.idea.MonoUploadTelegram/.idea/indexLayout.xml
+/.idea/.idea.MonoUploadTelegram/.idea/vcs.xml
