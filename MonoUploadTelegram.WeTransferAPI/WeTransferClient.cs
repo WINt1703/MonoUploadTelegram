@@ -4,6 +4,7 @@ using System.Text;
 using MonoUploadTelegram.WeTransferAPI.Models;
 using MonoUploadTelegram.WeTransferAPI.Models.Request;
 using MonoUploadTelegram.WeTransferAPI.Models.Responce;
+using MonoUploadTelegram.WeTransferAPI.Models.Response;
 using Newtonsoft.Json;
 using RestSharp;
 using RestSharp.Serializers.NewtonsoftJson;
@@ -26,17 +27,17 @@ namespace MonoUploadTelegram.WeTransferAPI
         public LinkFinalizeResponce UploadLink(string file = "/api/v4/transfers/link", string message = "")
         {
             var request = new LinkRequest(message, "en", SessionInfo.UserId,
-                new[] {new WeTransferFileInfo("asd.txt", 400, "file")});
+                new[] {new WeTransferFileInfoRequest("asd.txt", 400, "file")});
             
             return JsonConvert.DeserializeObject<LinkFinalizeResponce>(GetResponce(Method.POST, request, file, CookiesDo.Add | CookiesDo.Clear).Content);
         }
 
-        public FilesFinalizeMppResponce UploadFiles(LinkFinalizeResponce model)
+        public FilesFinalizeMppResponse UploadFiles(LinkFinalizeResponce model)
         {
             var file = $"/api/v4/transfers/{model.Id}/files";
             var request = new FilesRequest(model.Files[0].Name, model.Files[0].Size);
             
-            return JsonConvert.DeserializeObject<FilesFinalizeMppResponce>(GetResponce(Method.POST, request, file, CookiesDo.Add | CookiesDo.Clear).Content);
+            return JsonConvert.DeserializeObject<FilesFinalizeMppResponse>(GetResponce(Method.POST, request, file, CookiesDo.Add | CookiesDo.Clear).Content);
         }
         
         private RestResponse GetResponce<T>(Method method, T model, string file, CookiesDo cookiesDo)
@@ -62,7 +63,7 @@ namespace MonoUploadTelegram.WeTransferAPI
             return (RestResponse)response;
         }
 
-        private ulong CountChunk(ulong chunkSize, FilesFinalizeMppResponce model)
+        private ulong CountChunk(ulong chunkSize, FilesFinalizeMppResponse model)
         {
             if (model.Size / chunkSize > 0) return model.ChunkSize;
             else if (model.Size % chunkSize > 0) return model.ChunkSize - chunkSize;

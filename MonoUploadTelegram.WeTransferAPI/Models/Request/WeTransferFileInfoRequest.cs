@@ -3,7 +3,7 @@ using Newtonsoft.Json;
 namespace MonoUploadTelegram.WeTransferAPI.Models.Request
 {
     [JsonObject(MemberSerialization.OptIn)]
-    public class WeTransferFileInfo
+    public class WeTransferFileInfoRequest
     {
         [JsonProperty("name")]
         public string Name { get; set; }
@@ -14,7 +14,7 @@ namespace MonoUploadTelegram.WeTransferAPI.Models.Request
         [JsonProperty("item_type")]
         public string ItemType { get; set; }
 
-        public WeTransferFileInfo(string name, ulong size, string itemType) : base()
+        public WeTransferFileInfoRequest(string name, ulong size, string itemType) : base()
         {
             this.Name = name;
             this.Size = size;

@@ -15,9 +15,9 @@ namespace MonoUploadTelegram.WeTransferAPI.Models.Request
         public string UserId { get; set; }
         
         [JsonProperty("files")]
-        public WeTransferFileInfo[] Files { get; set; }
+        public WeTransferFileInfoRequest[] Files { get; set; }
 
-        public LinkRequest(string message, string language, string userId, WeTransferFileInfo[] files): base()
+        public LinkRequest(string message, string language, string userId, WeTransferFileInfoRequest[] files): base()
         {
             this.Message = message;
             this.Language = language;
