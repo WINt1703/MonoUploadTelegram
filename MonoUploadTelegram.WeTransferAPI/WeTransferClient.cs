@@ -46,11 +46,11 @@ namespace MonoUploadTelegram.WeTransferAPI
 
             request.AddHeaders(GetRequestHeaders(SessionInfo.Token));
 
-            if(cookiesDo == CookiesDo.Add)
+            if((cookiesDo & CookiesDo.Add) == CookiesDo.Add)
                 SessionInfo.Cookies?.ToList()
                     .ForEach(cookie =>request.AddCookie(cookie.Key, cookie.Value));
             
-            if(cookiesDo == CookiesDo.Clear)
+            if((cookiesDo & CookiesDo.Clear) == CookiesDo.Clear)
                 SessionInfo.Cookies?.Clear();
             
             request.AddJsonBody(model);

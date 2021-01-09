@@ -1,3 +1,4 @@
+using MonoUploadTelegram.WeTransferAPI.Models.Response;
 using Newtonsoft.Json;
 
 namespace MonoUploadTelegram.WeTransferAPI.Models.Responce
