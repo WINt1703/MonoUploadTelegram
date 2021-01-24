@@ -3,7 +3,7 @@ using Newtonsoft.Json;
 namespace MonoUploadTelegram.WeTransferAPI.Models.Request
 {
     [JsonObject(MemberSerialization.OptIn)]
-    public class LinkRequest
+    internal  class LinkRequest
     {
         [JsonProperty("message")]
         public string Message { get; set; }

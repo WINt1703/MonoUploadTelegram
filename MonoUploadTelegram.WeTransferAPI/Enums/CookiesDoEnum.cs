@@ -3,7 +3,7 @@ using System;
 namespace MonoUploadTelegram.WeTransferAPI.Enums
 {
     [Flags]
-    public enum CookiesDo
+    internal enum CookiesDo
     {
         None = 0,
         Clear = 1,

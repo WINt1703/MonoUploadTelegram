@@ -1,6 +1,6 @@
 namespace MonoUploadTelegram.WeTransferAPI.Enums
 {
-    public enum HttpBody
+    internal  enum HttpBody
     {
         None,
         Json,

@@ -2,7 +2,7 @@ using System;
 
 namespace MonoUploadTelegram.WeTransferAPI.Enums
 {
-    public enum ResponseDo
+    internal  enum ResponseDo
     {
         GetResponse,
         PassResponse,

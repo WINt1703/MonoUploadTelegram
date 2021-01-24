@@ -3,7 +3,7 @@ using Newtonsoft.Json;
 namespace MonoUploadTelegram.WeTransferAPI.Models.Response
 {	
     [JsonObject(MemberSerialization.OptIn)]
-    public class WeTransferFileInfoResponse
+    internal  class WeTransferFileInfoResponse
     {
         [JsonProperty("id")]
         public string Id { get; set; }
@@ -12,7 +12,7 @@ namespace MonoUploadTelegram.WeTransferAPI.Models.Response
         public string Name { get; set; }
 
         [JsonProperty("size")]
-        public ulong Size { get; set; }
+        public long Size { get; set; }
         
         [JsonProperty("retries")]
         public int Retries { get; set; }

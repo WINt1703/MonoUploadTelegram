@@ -3,9 +3,9 @@ using Newtonsoft.Json;
 namespace MonoUploadTelegram.WeTransferAPI.Models.Request
 {
     [JsonObject(MemberSerialization.OptIn)]
-    public class FinalizeMppRequest
+    internal  class FinalizeMppRequest
     {
         [JsonProperty("chunk_size")]
-        public uint ChunkSize { get; set; }
+        public int ChunkSize { get; set; }
     }
 }

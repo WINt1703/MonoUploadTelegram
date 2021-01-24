@@ -4,7 +4,7 @@ using Newtonsoft.Json;
 namespace MonoUploadTelegram.WeTransferAPI.Models.Responce
 {
     [JsonObject(MemberSerialization.OptIn)]
-    public class LinkFinalizeResponce
+    internal  class LinkFinalizeResponce
     {
         [JsonProperty ("success")]
         public bool Success { get; set; }

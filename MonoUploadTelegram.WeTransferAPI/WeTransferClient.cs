@@ -18,70 +18,65 @@ namespace MonoUploadTelegram.WeTransferAPI
     {
         #region Fields
         
-        private FileInfo _aboutFile;
         private readonly RestClient _client;
         
         #endregion
 
         #region Properties
 
+        public Uri BaseUrl { get; private set; }
         public bool IsUpload { get; private set; }
-        public FileInfo AboutFile
-        {
-            get => _aboutFile;
-            set 
-            {
-                if (!IsUpload)
-                    _aboutFile = value;
-            }
-        }
+        public FileInfo[] AboutFiles { get; private set; }
 
         #endregion
 
-        public WeTransferClient(FileInfo fileInfo, string baseUrl = "https://wetransfer.com")
+        public WeTransferClient(FileInfo[] fileInfo, string baseUrl = "https://wetransfer.com")
         {
             this.IsUpload = false;
-            this._client = new RestClient(baseUrl);
-            this._client.ThrowOnAnyError = true;
-            this._client.Encoding = Encoding.UTF8;
+            this.BaseUrl = new Uri(baseUrl);
+            this._client = new RestClient(BaseUrl) {ThrowOnAnyError = true, Encoding = Encoding.UTF8};
             this._client.UseUtf8Json();
             this._client.UseNewtonsoftJson();
-            this.AboutFile = fileInfo;
+            this.AboutFiles = fileInfo;
         }
 
         #region Methods
         
-        public LinkFinalizeResponce UploadLink(string file = "/api/v4/transfers/link", string message = "")
-        {            
-            var request = new LinkRequest(message, "en", SessionInfo.UserId,
-                new[] {new WeTransferFileInfoRequest(AboutFile.Name, (ulong)AboutFile.Length, "file")});
+        public LinkFinalizeResponce GetTransferId(string file = "/api/v4/transfers/link", string message = "")
+        {     
+            var files = new List<WeTransferFileInfoRequest>();
+
+            foreach (var infoFile  in AboutFiles)
+                files.Add(new WeTransferFileInfoRequest(infoFile.Name, infoFile.Length, file));
+
+            var request = new LinkRequest(message, "en", SessionInfo.UserId, files.ToArray());
             
             return JsonConvert.DeserializeObject<LinkFinalizeResponce>(GetResponse(Method.POST, request, file, CookiesDo.Add | CookiesDo.Clear).Content);
         }
 
-        public FilesFinalizeMppResponse UploadFiles(LinkFinalizeResponce model)
+        public FilesFinalizeMppResponse SendInfoAboutFiles(LinkFinalizeResponce model, int index)
         {
             var file = $"/api/v4/transfers/{model.Id}/files";
-            var request = new FilesRequest(model.Files.First().Name, model.Files.First().Size);
+            
+            var request = new FilesRequest(model.Files[index].Name, model.Files[index].Size);
             
             return JsonConvert.DeserializeObject<FilesFinalizeMppResponse>(GetResponse(Method.POST, request, file, CookiesDo.Add | CookiesDo.Clear).Content);
         }
 
-        public PartPutUrlResponse GetPartPutUrl(string transferId, string filesId, uint indexChunk, ulong chunckSize)
+        public PartPutUrlResponse GetPartPutUrl(string transferId, string filesId, int indexChunk, int chunckSize)
         {
             var file = $"/api/v4/transfers/{transferId}files/{filesId}/part-put-url";
-            var request = new PartPutURLRequest(indexChunk, chunckSize, 0);
+            var request = new PartPutUrlRequest(indexChunk, chunckSize, 0);
             
             return JsonConvert.DeserializeObject<PartPutUrlResponse>(GetResponse(Method.POST, request, file,CookiesDo.Add | CookiesDo.Clear).Content);
         }
 
-        public void LoadFileToCloud(string url)
+        public void LoadFileToCloud(string url, byte[] chunks)
         {
-            var baseUrl = _client.BaseUrl;
             _client.BaseUrl = new Uri(url);
-            
             GetResponse(Method.OPTIONS, default(string), null, CookiesDo.None, HttpBody.None, ResponseDo.PassResponse);
-            GetResponse(Method.PUT, default(string), null, CookiesDo.None, HttpBody.Xml, ResponseDo.PassResponse);
+            GetResponse(Method.PUT, chunks, null, CookiesDo.None, HttpBody.Xml, ResponseDo.PassResponse);
+            _client.BaseUrl = BaseUrl;
         }
         
         private RestResponse GetResponse<T>(Method method, T model, string file, CookiesDo cookiesDo, HttpBody body = HttpBody.Json, ResponseDo responseDo = ResponseDo.GetResponse)

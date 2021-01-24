@@ -3,18 +3,18 @@ using Newtonsoft.Json;
 namespace MonoUploadTelegram.WeTransferAPI.Models.Request
 {
     [JsonObject(MemberSerialization.OptIn)]
-    public class PartPutURLRequest
+    internal  class PartPutUrlRequest
     {
         [JsonProperty("chunk_number")]
-        public uint ChunkNumber { get; set; }
+        public int ChunkNumber { get; set; }
         
         [JsonProperty("chunk_size")] 
-        public ulong ChunkSize { get; set; }
+        public int ChunkSize { get; set; }
 
         [JsonProperty("chunk_size")] 
         public int ChunkCrc { get; set; }
 
-        public PartPutURLRequest(uint chunkNumber, ulong chunkSize, int chunkCrc)
+        public PartPutUrlRequest(int chunkNumber, int chunkSize, int chunkCrc)
         {
             this.ChunkCrc = chunkCrc;
             this.ChunkNumber = chunkNumber;
