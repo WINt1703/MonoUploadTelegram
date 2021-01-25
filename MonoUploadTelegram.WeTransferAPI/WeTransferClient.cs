@@ -25,14 +25,12 @@ namespace MonoUploadTelegram.WeTransferAPI
         #region Properties
 
         public Uri BaseUrl { get; private set; }
-        public bool IsUpload { get; private set; }
         public FileInfo[] AboutFiles { get; private set; }
 
         #endregion
 
         public WeTransferClient(FileInfo[] fileInfo, string baseUrl = "https://wetransfer.com")
         {
-            this.IsUpload = false;
             this.BaseUrl = new Uri(baseUrl);
             this._client = new RestClient(BaseUrl) {ThrowOnAnyError = true, Encoding = Encoding.UTF8};
             this._client.UseUtf8Json();
@@ -81,7 +79,6 @@ namespace MonoUploadTelegram.WeTransferAPI
         
         private RestResponse GetResponse<T>(Method method, T model, string file, CookiesDo cookiesDo, HttpBody body = HttpBody.Json, ResponseDo responseDo = ResponseDo.GetResponse)
         {
-            IsUpload = true;
             var request = new RestRequest(file);
 
             request.AddHeaders(GetRequestHeaders(SessionInfo.Token));
@@ -135,7 +132,7 @@ namespace MonoUploadTelegram.WeTransferAPI
         
         private static Dictionary<string, string> GetRequestHeaders(string token)
         {
-            return new ()
+            return new Dictionary<string, string> 
             {
                 ["Content-Type"] = "application/json;charset=utf-8",
                 ["Connection"] = "keep-alive",

@@ -1,13 +1,7 @@
-using System;
-using System.Collections.Generic;
-using System.IO;
 using System.Linq;
-using System.Text.Json;
 using System.Text.RegularExpressions;
 using AngleSharp.Dom;
 using AngleSharp.Html.Dom;
-using Newtonsoft.Json;
-using Newtonsoft.Json.Linq;
 
 namespace MonoUploadTelegram.Parser
 {
@@ -18,7 +12,7 @@ namespace MonoUploadTelegram.Parser
         {
             var script = page
                 .QuerySelectorAll<IHtmlScriptElement>("script")
-                .Where(script => script.Text.Contains("var __launch_darkly__"))?
+                .Where(s => s.Text.Contains("var __launch_darkly__"))?
                 .FirstOrDefault();
 
             var valueRegex = "\"key\":\"" + @"\S{36}" + "\"";
